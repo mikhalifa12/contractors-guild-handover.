@@ -1,0 +1,329 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Contractors Guild design system
+   --------------------------------------------------------------------------
+   Dark industrial charcoal surfaces, burnt-orange accents, high contrast,
+   strong uppercase headings and clean cards. Recreated as a real responsive
+   UI (the brand artwork is never used as a page background).
+   ========================================================================== */
+
+@theme {
+  /* Surfaces */
+  --color-ink-950: #07080a;
+  --color-ink-900: #0d0f12;
+  --color-ink-850: #131519;
+  --color-ink-800: #191c21;
+  --color-ink-750: #1f232a;
+  --color-ink-700: #262b33;
+  --color-ink-600: #333a44;
+  --color-ink-500: #454d59;
+
+  /* Text */
+  --color-paper: #f4f5f7;
+  --color-steel-300: #c6ccd4;
+  --color-steel-400: #a2aab5;
+  --color-steel-500: #7f8894;
+
+  /* Brand */
+  --color-ember-300: #ffb179;
+  --color-ember-400: #ff8f42;
+  --color-ember-500: #f26a0a;
+  --color-ember-600: #d9560a;
+  --color-ember-700: #a8420a;
+  --color-spark: #ffc24b;
+
+  /* Semantic */
+  --color-signal-success: #45c46a;
+  --color-signal-warning: #e3b341;
+  --color-signal-danger: #f0554d;
+  --color-signal-info: #4c9aff;
+
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-display: 'Arial Narrow', 'Helvetica Neue Condensed', ui-sans-serif, system-ui,
+    -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Radii */
+  --radius-card: 0.75rem;
+
+  /* Shadows */
+  --shadow-ember: 0 0 0 1px rgb(242 106 10 / 0.35), 0 10px 30px -12px rgb(242 106 10 / 0.45);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background-color: var(--color-ember-500);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ember-400);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* --- Typography ------------------------------------------------------- */
+  .cg-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 0.98;
+  }
+
+  .cg-eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-ember-400);
+  }
+
+  /* --- Surfaces --------------------------------------------------------- */
+  .cg-card {
+    background-color: var(--color-ink-850);
+    border: 1px solid var(--color-ink-700);
+    border-radius: var(--radius-card);
+  }
+
+  .cg-card-raised {
+    background-image: linear-gradient(180deg, var(--color-ink-800), var(--color-ink-850));
+  }
+
+  /* Subtle industrial texture: a very low-contrast diagonal weave. Never
+     strong enough to interfere with text contrast. */
+  .cg-texture {
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgb(255 255 255 / 0.016) 0px,
+      rgb(255 255 255 / 0.016) 1px,
+      transparent 1px,
+      transparent 7px
+    );
+  }
+
+  .cg-divider {
+    height: 2px;
+    background-image: linear-gradient(
+      90deg,
+      var(--color-ember-500),
+      rgb(242 106 10 / 0.15) 60%,
+      transparent
+    );
+  }
+
+  .cg-glow-line {
+    box-shadow: 0 0 12px rgb(242 106 10 / 0.55);
+  }
+
+  /* --- Forms ------------------------------------------------------------ */
+  .cg-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-steel-400);
+    margin-bottom: 0.375rem;
+  }
+
+  .cg-input,
+  .cg-select,
+  .cg-textarea {
+    width: 100%;
+    background-color: var(--color-ink-900);
+    border: 1px solid var(--color-ink-600);
+    border-radius: 0.5rem;
+    color: var(--color-paper);
+    padding: 0.75rem 0.875rem;
+    font-size: 1rem; /* 16px avoids iOS zoom-on-focus */
+    line-height: 1.35;
+    min-height: 48px; /* comfortable touch target */
+    transition: border-color 120ms ease, box-shadow 120ms ease;
+  }
+
+  .cg-textarea {
+    min-height: 96px;
+    resize: vertical;
+  }
+
+  .cg-input::placeholder,
+  .cg-textarea::placeholder {
+    color: var(--color-steel-500);
+  }
+
+  .cg-input:focus,
+  .cg-select:focus,
+  .cg-textarea:focus {
+    outline: none;
+    border-color: var(--color-ember-500);
+    box-shadow: 0 0 0 3px rgb(242 106 10 / 0.22);
+  }
+
+  .cg-input[aria-invalid='true'],
+  .cg-textarea[aria-invalid='true'],
+  .cg-select[aria-invalid='true'] {
+    border-color: var(--color-signal-danger);
+  }
+
+  .cg-hint {
+    font-size: 0.75rem;
+    color: var(--color-steel-500);
+    margin-top: 0.375rem;
+  }
+
+  .cg-error {
+    font-size: 0.8125rem;
+    color: var(--color-signal-danger);
+    margin-top: 0.375rem;
+  }
+
+  /* Small square control for icon-only actions (move a line, remove a line).
+     Kept at 40px so it stays a comfortable thumb target on a phone. */
+  .cg-icon-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-ink-600);
+    background-color: var(--color-ink-800);
+    color: var(--color-steel-300);
+    font-size: 0.875rem;
+    line-height: 1;
+  }
+
+  .cg-icon-action:hover:not(:disabled) {
+    border-color: var(--color-ember-500);
+    color: var(--color-paper);
+  }
+
+  .cg-icon-action:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* --- Printable document surface --------------------------------------- */
+  /* Quotes and invoices keep a light surface with dark text: they are read on
+     paper, printed on a mono printer and photographed on site. Orange is used
+     for accent rules and headings only, never behind a figure. */
+  .cg-document {
+    background-color: #ffffff;
+    color: #14161a;
+  }
+
+  .cg-document-rule {
+    height: 3px;
+    background-color: var(--color-ember-500);
+  }
+
+  .cg-document-muted {
+    color: #5b6270;
+  }
+
+  .cg-document-line {
+    border-color: #e2e4e8;
+  }
+
+  @media print {
+    .cg-no-print {
+      display: none !important;
+    }
+
+    .cg-document {
+      border: 0;
+      box-shadow: none;
+    }
+  }
+
+  /* --- Status badges ---------------------------------------------------- */
+  .cg-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-ink-600);
+    background-color: var(--color-ink-800);
+    color: var(--color-steel-300);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.625rem;
+    white-space: nowrap;
+  }
+
+  .cg-badge-ember {
+    border-color: rgb(242 106 10 / 0.45);
+    background-color: rgb(242 106 10 / 0.14);
+    color: var(--color-ember-300);
+  }
+
+  .cg-badge-success {
+    border-color: rgb(69 196 106 / 0.45);
+    background-color: rgb(69 196 106 / 0.14);
+    color: var(--color-signal-success);
+  }
+
+  .cg-badge-warning {
+    border-color: rgb(227 179 65 / 0.45);
+    background-color: rgb(227 179 65 / 0.14);
+    color: var(--color-signal-warning);
+  }
+
+  .cg-badge-danger {
+    border-color: rgb(240 85 77 / 0.45);
+    background-color: rgb(240 85 85 / 0.14);
+    color: var(--color-signal-danger);
+  }
+
+  .cg-badge-info {
+    border-color: rgb(76 154 255 / 0.45);
+    background-color: rgb(76 154 255 / 0.14);
+    color: var(--color-signal-info);
+  }
+}
+
+/* Above-the-fold marketing heading effect: an orange underline bar. */
+.cg-underline-bar::after {
+  content: '';
+  display: block;
+  width: 4.5rem;
+  height: 4px;
+  margin-top: 0.75rem;
+  background-image: linear-gradient(90deg, var(--color-ember-500), var(--color-ember-700));
+}
+
+/* Safe areas for the mobile bottom navigation (iPhone home indicator). */
+.cg-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
